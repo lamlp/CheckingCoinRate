@@ -1,0 +1,21 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscach
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+.vs/
+DPS/exLogger/
+logs/
+/internallog.txt
+[Ww]wwroot/
+DPS/libman.json
+[Dd]PS-Logs/
