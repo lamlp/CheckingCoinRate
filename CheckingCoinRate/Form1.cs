@@ -23,8 +23,8 @@ namespace CheckingCoinRate
             }));
             while (true)
             {
-                Thread.Sleep(10000);
                 await Task.Run(() => GetPriceScaleCoinTop());
+                Thread.Sleep(20000);
             }
         }
 

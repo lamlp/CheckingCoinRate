@@ -40,10 +40,6 @@
 		"MaxPrice": 3.67
 	},
 	{
-		"Name": "Shiba-Inu",
-		"MaxPrice": 0.00008845
-	},
-	{
 		"Name": "TRON",
 		"MaxPrice": 0.1291
 	},
@@ -52,20 +48,12 @@
 		"MaxPrice": 146.22
 	},
 	{
-		"Name": "Ethereum-Classic",
-		"MaxPrice": 64.94
-	},
-	{
 		"Name": "Uniswap",
 		"MaxPrice": 28.43
 	},
 	{
 		"Name": "Litecoin",
 		"MaxPrice": 294.56
-	},
-	{
-		"Name": "Cosmos",
-		"MaxPrice": 44.70
 	},
 	{
 		"Name": "Chainlink",
@@ -88,28 +76,12 @@
 		"MaxPrice": 39.40
 	},
 	{
-		"Name": "Tezos",
-		"MaxPrice": 9.18
-	},
-	{
 		"Name": "The-Sandbox",
 		"MaxPrice": 8.44
 	},
 	{
-		"Name": "Hedera",
-		"MaxPrice": 0.5701
-	},
-	{
-		"Name": "Aave",
-		"MaxPrice": 454.27
-	},
-	{
 		"Name": "elrond-egld",
 		"MaxPrice": 542.58
-	},
-	{
-		"Name": "Chiliz",
-		"MaxPrice": 0.643
 	},
 	{
 		"Name": "Chiliz",
