@@ -7,7 +7,7 @@ namespace CheckingCoinRate.Models
         [JsonProperty("id")]
         public int id;
         [JsonProperty("marketPairs")]
-        public List<WemixModel> marketPairs;
+        public List<ExchangeModel> marketPairs;
     }
 
     public class CoinMarketDataReceivedModel

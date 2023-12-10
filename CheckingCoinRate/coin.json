@@ -1,98 +1,37 @@
 [
 	{
-		"Name": "bitcoin",
-		"MaxPrice": 68789.63
+		"Name": "nexa",
+		"BuyPrice": 0.000025,
+		"Amount": 504904492
 	},
 	{
-		"Name": "ethereum",
-		"MaxPrice": 4891.70
+		"Name": "sui",
+		"BuyPrice": 0.3,
+		"Amount": 9500
 	},
 	{
-		"Name": "bnb",
-		"MaxPrice": 669.35
+		"Name": "okb",
+		"BuyPrice": 54.82,
+		"Amount": 30.67
 	},
 	{
-		"Name": "xrp",
-		"MaxPrice": 1.35
+		"Name": "uniswap",
+		"BuyPrice": 6.27,
+		"Amount": 85.2
 	},
 	{
-		"Name": "cardano",
-		"MaxPrice": 2.80
+		"Name": "star-link",
+		"BuyPrice": 0.00000333,
+		"Amount": 30006005.98
 	},
 	{
-		"Name": "solana",
-		"MaxPrice": 260.06
+		"Name": "openfabric-ai",
+		"BuyPrice": 0.19,
+		"Amount": 793.93527
 	},
 	{
-		"Name": "Dogecoin",
-		"MaxPrice": 0.3388
-	},
-	{
-		"Name": "Polkadot",
-		"MaxPrice": 55.00
-	},
-	{
-		"Name": "Polygon",
-		"MaxPrice": 2.92
-	},
-	{
-		"Name": "Dai",
-		"MaxPrice": 3.67
-	},
-	{
-		"Name": "TRON",
-		"MaxPrice": 0.1291
-	},
-	{
-		"Name": "Avalanche",
-		"MaxPrice": 146.22
-	},
-	{
-		"Name": "Uniswap",
-		"MaxPrice": 28.43
-	},
-	{
-		"Name": "Litecoin",
-		"MaxPrice": 294.56
-	},
-	{
-		"Name": "Chainlink",
-		"MaxPrice": 38.16
-	},
-	{
-		"Name": "Cronos",
-		"MaxPrice": 0.9698
-	},
-	{
-		"Name": "Monero",
-		"MaxPrice": 296.74
-	},
-	{
-		"Name": "Stellar",
-		"MaxPrice": 0.4403
-	},
-	{
-		"Name": "ApeCoin",
-		"MaxPrice": 39.40
-	},
-	{
-		"Name": "The-Sandbox",
-		"MaxPrice": 8.44
-	},
-	{
-		"Name": "elrond-egld",
-		"MaxPrice": 542.58
-	},
-	{
-		"Name": "Chiliz",
-		"MaxPrice": 0.643
-	},
-	{
-		"Name": "Celo",
-		"MaxPrice": 8.27
-	},
-	{
-		"Name": "the-graph",
-		"MaxPrice": 1.33
+		"Name": "zebec-protocol",
+		"BuyPrice": 0.009387613726,
+		"Amount": 9950.199202
 	}
 ]

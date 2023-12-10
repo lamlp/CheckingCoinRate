@@ -1,7 +1,9 @@
 using CheckingCoinRate.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Drawing;
 using System.Net.Http.Headers;
+using System.Windows.Forms;
 
 namespace CheckingCoinRate
 {
@@ -24,7 +26,7 @@ namespace CheckingCoinRate
             while (true)
             {
                 await Task.Run(() => GetPriceScaleCoinTop());
-                Thread.Sleep(20000);
+                Thread.Sleep(5000);
             }
         }
 
@@ -45,7 +47,7 @@ namespace CheckingCoinRate
 
         public async Task GetPriceScaleCoinTop()
         {
-            List<CoinModel> coinListResult = new List<CoinModel>();
+            var coinListResult = new ItemList();
 
             foreach (var coin in coinList)
             {
@@ -67,32 +69,34 @@ namespace CheckingCoinRate
                     {
                         continue;
                     }
-                    var coinResults = coinMarket.data.marketPairs;
+                    var exchangeResults = coinMarket.data.marketPairs;
                     client.Dispose();
-                    foreach (var coinResult in coinResults)
+                    var topExchangeWithThisCoin = exchangeResults.Where(x => x.quoteSymbol?.ToLower() == "usdt").Aggregate((i1, i2) => i1.volumePercent > i2.volumePercent ? i1 : i2);
+                    if (topExchangeWithThisCoin.price == 0)
                     {
-                        if (coinResult.exchangeName.ToLower() == "binance" && coinResult.quoteSymbol.ToLower() == "usdt")
-                        {
-                            if (coinResult.price == 0)
-                            {
-                                continue;
-                            }
-                            var coinItem = new CoinModel();
-                            coinItem.Pair = coinResult.marketPair;
-                            coinItem.Url = coinResult.marketUrl;
-                            coinItem.Price = RoundNumber(coinResult.price);
-                            coinItem.MaxPrice = coin.MaxPrice;
-                            coinItem.Rate = RoundNumber(coin.MaxPrice / coinResult.price);
-                            coinListResult.Add(coinItem);
-                        }
+                        continue;
                     }
+
+                    var coinItem = new CoinModel();
+                    coinItem.Pair = topExchangeWithThisCoin.marketPair;
+                    coinItem.Url = topExchangeWithThisCoin.marketUrl;
+                    coinItem.Amount = coin.Amount;
+                    coinItem.ExchangeName = topExchangeWithThisCoin.exchangeName;
+                    coinItem.Price = topExchangeWithThisCoin.price.ToString("0.00000000");
+                    coinItem.TotalPrice = RoundNumber(topExchangeWithThisCoin.price * (coin.Amount));
+                    var interestValue = (topExchangeWithThisCoin.price - coin.BuyPrice) * coin.Amount;
+                    var interestPercent = coin.BuyPrice > 0 ? RoundNumber(((topExchangeWithThisCoin.price - coin.BuyPrice) / coin.BuyPrice) * 100) : 0;
+                    coinItem.Interest = interestValue.ToString("0.00000000");
+                    coinItem.InterestPercent = $"{interestPercent} %";
+                    coinListResult.Add(coinItem);
                 }
                 client.Dispose();
             }
 
-            coinListResult = coinListResult.OrderByDescending(x => x.Rate).ToList();
+            //coinListResult = coinListResult.OrderByDescending(x => x.TotalPrice);
 
             dataGridView1.Invoke(new Action(() => {
+                coinListResult.SetFooter();
                 dataGridView1.DataSource = coinListResult;
                 dataGridView1.Refresh();
             }));
@@ -111,10 +115,17 @@ namespace CheckingCoinRate
             column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns.Add(column1);
 
+            DataGridViewTextBoxColumn column6 = new DataGridViewTextBoxColumn();
+            column6.Name = "ExchangeName";
+            column6.HeaderText = "ExchangeName";
+            column6.DataPropertyName = "ExchangeName";
+            column6.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns.Add(column6);
+
             DataGridViewTextBoxColumn column2 = new DataGridViewTextBoxColumn();
-            column2.Name = "Rate";
-            column2.HeaderText = "Rate";
-            column2.DataPropertyName = "Rate";
+            column2.Name = "Amount";
+            column2.HeaderText = "Amount";
+            column2.DataPropertyName = "Amount";
             column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns.Add(column2);
 
@@ -126,9 +137,9 @@ namespace CheckingCoinRate
             dataGridView1.Columns.Add(column3);
 
             DataGridViewTextBoxColumn column4 = new DataGridViewTextBoxColumn();
-            column4.Name = "MaxPrice";
-            column4.HeaderText = "MaxPrice";
-            column4.DataPropertyName = "MaxPrice";
+            column4.Name = "TotalPrice";
+            column4.HeaderText = "TotalPrice";
+            column4.DataPropertyName = "TotalPrice";
             column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns.Add(column4);
 
@@ -138,6 +149,20 @@ namespace CheckingCoinRate
             column5.DataPropertyName = "Url";
             column5.Visible = false;
             dataGridView1.Columns.Add(column5);
+
+            DataGridViewTextBoxColumn column7 = new DataGridViewTextBoxColumn();
+            column7.Name = "Interest";
+            column7.HeaderText = "Interest";
+            column7.DataPropertyName = "Interest";
+            column7.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns.Add(column7);
+
+            DataGridViewTextBoxColumn column8 = new DataGridViewTextBoxColumn();
+            column8.Name = "InterestPercent";
+            column8.HeaderText = "InterestPercent";
+            column8.DataPropertyName = "InterestPercent";
+            column8.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns.Add(column8);
         }
 
         private decimal RoundNumber(decimal number)
@@ -150,8 +175,8 @@ namespace CheckingCoinRate
             string url = string.Empty;
             try
             {
-                var value = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-                if (value == null)
+                var value = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                if (string.IsNullOrEmpty(value))
                 {
                     return;
                 }
@@ -163,6 +188,45 @@ namespace CheckingCoinRate
             }
             ProcessStartInfo sInfo = new ProcessStartInfo { FileName = url, UseShellExecute = true };
             Process.Start(sInfo);
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+
+                var valueFromCell = (string)row.Cells[6].Value;
+                if (valueFromCell == null)
+                {
+                    continue;
+                }
+                var interestValue = valueFromCell;
+                if (interestValue != null && decimal.Parse(interestValue) > 0)
+                {
+                    DataGridViewCellStyle style = new DataGridViewCellStyle();
+                    style.BackColor = Color.LightGreen;
+                    style.ForeColor = Color.Black;
+                    row.Cells[6].Style = style;
+                    row.Cells[7].Style = style;
+                }
+                else
+                {
+                    DataGridViewCellStyle style = new DataGridViewCellStyle();
+                    style.BackColor = Color.PaleVioletRed;
+                    style.ForeColor = Color.Black;
+                    row.Cells[6].Style = style;
+                    row.Cells[7].Style = style;
+                }
+            }
+
+            int rowIndex = dataGridView1.Rows.GetLastRow(DataGridViewElementStates.Visible);
+            if (rowIndex <= 0)
+            {
+                return;
+            }
+            dataGridView1.Rows[rowIndex].DefaultCellStyle.BackColor = Color.MediumVioletRed;
+            dataGridView1.Rows[rowIndex].DefaultCellStyle.SelectionBackColor = Color.MediumVioletRed;
+            dataGridView1.Rows[rowIndex].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 11f, FontStyle.Bold);
         }
     }
 }

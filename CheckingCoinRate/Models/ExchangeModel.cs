@@ -2,7 +2,7 @@
 
 namespace CheckingCoinRate.Models
 {
-    public class WemixModel
+    public class ExchangeModel
     {
         [JsonProperty("exchangeName")]
         public string exchangeName; // : "Bithumb";
@@ -20,5 +20,7 @@ namespace CheckingCoinRate.Models
         public DateTime lastUpdated;
         [JsonProperty("quoteSymbol")]
         public string quoteSymbol; // USDT
+        [JsonProperty("volumePercent")]
+        public decimal volumePercent; // 68.111111
     }
 }
