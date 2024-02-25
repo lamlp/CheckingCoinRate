@@ -1,37 +1,63 @@
-[
-	{
-		"Name": "nexa",
-		"BuyPrice": 0.000025,
-		"Amount": 504904492
-	},
-	{
-		"Name": "sui",
-		"BuyPrice": 0.3,
-		"Amount": 9500
-	},
-	{
-		"Name": "okb",
-		"BuyPrice": 54.82,
-		"Amount": 30.67
-	},
-	{
-		"Name": "uniswap",
-		"BuyPrice": 6.27,
-		"Amount": 85.2
-	},
-	{
-		"Name": "star-link",
-		"BuyPrice": 0.00000333,
-		"Amount": 30006005.98
-	},
-	{
-		"Name": "openfabric-ai",
-		"BuyPrice": 0.19,
-		"Amount": 793.93527
-	},
-	{
-		"Name": "zebec-protocol",
-		"BuyPrice": 0.009387613726,
-		"Amount": 9950.199202
-	}
-]
+{
+  "Available": [
+    {
+      "Name": "nexa",
+      "BuyPrice": 0.00001,
+      "Amount": 746502965
+    },
+    {
+      "Name": "sui",
+      "BuyPrice": 1.658,
+      "Amount": 3527
+    },
+    {
+      "Name": "cetus-protocol",
+      "BuyPrice": 0.1065,
+      "Amount": 9250
+    },
+    {
+      "Name": "0x2eb844b27912ccec02d33e3e5483dd4b00ce955d",
+      "DexUrl": "dexscan/vi/linea",
+      "BuyPrice": 0.0001,
+      "Amount": 14000
+    },
+    {
+      "Name": "0xb502d721a456112c34debc116ec763b8f50dd03a",
+      "DexUrl": "dexscan/vi/linea",
+      "BuyPrice": 0.0013,
+      "Amount": 402850
+    },
+    {
+      "Name": "binance-usd",
+      "BuyPrice": 1,
+      "Amount": 4584
+    },
+    {
+      "Name": "lybra-finance",
+      "BuyPrice": 0.392,
+      "Amount": 2297
+    },
+    {
+      "Name": "meme",
+      "BuyPrice": 0.0268,
+      "Amount": 2840
+    },
+    {
+      "Name": "bitcoin",
+      "BuyPrice": 43400,
+      "Amount": 0.01972
+    }
+  ],
+  "Pending": [
+    {
+      "Name": "sui",
+      "BuyPrice": 0.6,
+      "Amount": 2294
+    },
+    {
+      "Name": "ethereum",
+      "BuyPrice": 2267.54,
+      "Amount": 1.4
+    }
+  ]
+}
